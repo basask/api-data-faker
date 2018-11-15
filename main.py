@@ -12,9 +12,9 @@ from sanic.response import json
 from factories import FactoryA, FactoryB, FactoryC
 
 SERVICE_MAP = {
-    'a': {'factory': FactoryA, 'port': 8881},
-    'b': {'factory': FactoryB, 'port': 8882},
-    'c': {'factory': FactoryC, 'port': 8883},
+    'service_a': {'factory': FactoryA, 'port': 8881},
+    'service_b': {'factory': FactoryB, 'port': 8882},
+    'service_c': {'factory': FactoryC, 'port': 8883},
 }
 
 
@@ -23,7 +23,7 @@ def service_runner(factory_class, port):
 
     @app.route('/<key>')
     async def test(request, key):
-        instance = factory_class.build(cpf=key)
+        instance = factory_class(cpf=key)
         return json(instance.__dict__)
     app.run(host='0.0.0.0', port=port)
 
